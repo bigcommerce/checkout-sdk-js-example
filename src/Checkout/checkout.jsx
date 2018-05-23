@@ -95,7 +95,7 @@ export default class Checkout extends React.PureComponent {
                                 <Payment
                                     errors={ errors.getSubmitOrderError() }
                                     methods={ checkout.getPaymentMethods() }
-                                    onClick={ (name, gateway) => this.service.initializePayment({ methodId: name, gatewayId: gateway }) }
+                                    onClick={ (name, gateway) => this.service.initializePayment({ methodId: name, gatewayId: gateway, square: this._getSquareConfiguration() }) }
                                     onChange={ (payment) => this.setState({ payment }) } />
 
                                 <Billing
@@ -121,6 +121,30 @@ export default class Checkout extends React.PureComponent {
                 </Fragment>
             } />
         );
+    }
+
+    _getSquareConfiguration() {
+        return {
+            cardNumber: {
+                elementId: 'square-paymentCCNumber'
+            },
+            cvv: {
+                elementId: 'square-paymentCCV'
+            },
+            expirationDate: {
+                elementId: 'square-paymentExpiry'
+            },
+            postalCode: {
+                elementId: 'square-paymentPostCode'
+            },
+            inputClass: 'square-container',
+            inputStyles: [{
+                backgroundColor: '#f1f5f8',
+                color: '#606f7b',
+                fontSize: '13px',
+                padding: '8px 12px',
+            }]
+        };
     }
 
     _submitOrder(event, isGuest) {
