@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import RadioInput from '../../components/RadioInput/radio-input';
 import PaymentForm from './PaymentForm/payment-form';
+import SquarePaymentForm from './SquarePaymentForm/square-payment-form';
 
 export default class PaymentMethod extends React.PureComponent {
     render() {
@@ -17,11 +18,19 @@ export default class PaymentMethod extends React.PureComponent {
                         methodId={ this.props.method.id }
                         onChange={ this.props.onChange } />
                 }
+
+                { this._shouldShowSquarePaymentForm() &&
+                    <SquarePaymentForm />
+                }
             </Fragment>
         );
     }
 
     _shouldShowPaymentForm() {
-        return this.props.selected === this.props.method.id && this.props.method.type !== 'PAYMENT_TYPE_OFFLINE';
+        return this.props.selected === this.props.method.id && this.props.method.type !== 'PAYMENT_TYPE_OFFLINE' && this.props.method.id !== 'squarev2';
+    }
+
+    _shouldShowSquarePaymentForm() {
+        return this.props.selected === this.props.method.id && this.props.method.id === 'squarev2';
     }
 }
