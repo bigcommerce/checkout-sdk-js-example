@@ -165,7 +165,7 @@ export default class Checkout extends React.PureComponent {
         billingAddressPayload = { ...billingAddressPayload, email: this.state.customer.email };
 
         let { payment } = this.state;
-
+        billingAddressPayload.email = this.state.customer.email;
         this.setState({ isPlacingOrder: true });
         event.preventDefault();
 
